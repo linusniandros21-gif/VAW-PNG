@@ -1,0 +1,548 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awareness · Action · Change-Breaking the Silence</title>
+
+    <style>
+        /* CSS Variables for purple theme & reuse */
+        :root {
+    --color-red: #460a5e;
+   --color-yellow: #bcadfd;
+    --color-black: #160f03;
+    --color-white: #ffffff;
+    --color-primary: #f8f8f8;
+    --color-secondary: #020102;
+    --max-width: 1000px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--color-black);
+            background: url('c:\\Users\\260093\\Desktop\\Niandros Linus\\project\\images\\jpg.jpg') center center no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        header {
+            position: relative;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_Papua_New_Guinea.svg/1200px-Flag_of_Papua_New_Guinea.svg.png') center/cover no-repeat;
+            color: var(--color-white);
+            text-align: center;
+            padding: 80px 20px;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            background: var(--color-red);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        nav a {
+            color: var(--color-white);
+            padding: 12px 16px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background: var(--color-yellow);
+            color: var(--color-black);
+        }
+
+        section {
+            max-width: var(--max-width);
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h2 {
+            color: var(--color-primary);
+            margin-bottom: 15px;
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: var(--color-yellow);
+            margin-top: 5px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-box {
+            /* uniform background for all stat boxes */
+            background: var(--color-yellow);
+            color: var(--color-black);
+            padding: 20px;
+            border-left: 6px solid var(--color-red);
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 20px;
+        }
+        .stat-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+
+        .resources,
+        .testimony {
+            background:#bcadfd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* general box content resets */
+        .stat-box p,
+        .stat-box ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .stat-box ul {
+            padding-left: 20px;
+        }
+
+        .testimony h3 {
+            color: var(--color-secondary);
+            margin-bottom: 10px;
+        }
+        .testimony p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .testimony p em {
+            font-size: 0.9rem;
+            color: #b84242;
+        }
+
+        /* tabbed testimonies */
+        .tabs {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.12);
+        }
+        .tab-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            background: #f1e8ff;
+            padding: 0.45rem;
+        }
+        .tab-btn {
+            border: 0;
+            background: #ded1ff;
+            color: #2f1c3e;
+            padding: 0.65rem 0.85rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .tab-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        }
+        .tab-btn.active {
+            background: #6036c5;
+            color: #fff;
+            box-shadow: 0 3px 12px rgba(96,54,197,0.35);
+        }
+        .tab-panel {
+            padding: 1.4rem;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            transform: translateY(8px);
+        }
+        .tab-panel.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* testimony dropdown */
+        details.testimonies-dropdown {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            padding: 0.75rem;
+            margin-top: 20px;
+        }
+
+        details.testimonies-dropdown > summary {
+            cursor: pointer;
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.06);
+            display: list-item;
+            user-select: none;
+        }
+
+        details.testimonies-dropdown > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details.testimonies-dropdown[open] > summary {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        details.testimonies-dropdown .testimony {
+            margin: 1rem 0;
+        }
+
+        /* global link color (except nav) */
+        a {
+            color: #dd2e2e;
+            text-decoration: none;
+        }
+
+        .resources a {
+            /* resources-specific links follow global style too */
+            color: #dd2e2e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .resources a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: var(--color-black);
+            color: var(--color-white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 60px 10px;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            nav .container {
+                flex-direction: column;
+            }
+            nav a {
+                width: 100%;
+                text-align: center;
+                border-top: 1px solid #444;
+            }
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Violence Against Women in Papua New Guinea</h1>
+        <p>Breaking the silence, creating change in PNG</p>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <a href="#overview">Overview</a>
+            <a href="#facts">Facts & Statistics</a>
+            <a href="#types">Types of Violence</a>
+            <a href="#voices">Real Voices</a>
+            <a href="#leaders">Leaders Speak Out</a>
+            <a href="#resources">Resources</a>
+        </div>
+    </nav>
+    
+    <section id="overview">
+        
+       
+            <h2>What is Violence Against Women in PNG?</h2>
+             <div class="stat-box">
+            <p>Violence against women in PNG (Papua New Guinea) refers to widespread physical, sexual, emotional, and economic abuse experienced by women and girls across the country. Papua New Guinea has one of the highest reported rates of gender-based violence in the world.</p>
+        </div>
+    </section>
+    
+    <section id="facts">
+        <h2>Facts & Statistics</h2>
+        <div class="stats">
+            <div class="stat-box">
+                <h3>68%</h3>
+                <p>of women have experienced physical or sexual violence</p>
+                <p class="source"> <a href="https://dhsprogram.com/pubs/pdf/FR364/FR364.pdf" target="_blank" rel="noopener">PNG Demographic Health Survey, 2016-2018</a></p>
+            </div>
+            <div class="stat-box">
+                <h3>1.5M+</h3>
+                <p>Over 1 million women and girls are estimated to experience gender-based violence annually</p>
+                <p class="source"> <a href="https://www.usip.org/publications/2024" target="_blank" rel="noopener">USIP Report, 2024</a></p>
+            </div>
+            <div class="stat-box">
+                <h3>80%</h3>
+                <p>of men in Bougainville reported perpetrating partner violence</p>
+                <p class="source"> <a href="https://www.hrw.org/report/2015" target="_blank" rel="noopener">Human Rights Watch, 2015</a></p>
+            </div>
+            <div class="stat-box">
+                <h3>17M</h3>
+                <p>one survivor went to police  and was turned away every time</p>
+                <p class="source"> <a href="https://www.hrw.org/report/2015" target="_blank" rel="noopener">Human Rights Watch, 2015</a></p>
+            </div>
+        </div>
+    </section>
+    
+        <section id="types">
+        <h2>Types of Violence and How To Deal With Them</h2>
+        
+        <div class="resources">
+            <h3>🚨 Domestic Violence</h3>
+            <p><strong>What it is:</strong> Beating, intimidation, marital rape, and controlling behavior by husbands or partners. Many cases go unreported due to fear, stigma, or economic dependence.</p>
+            <h4 style="color: #dd5853; margin-top: 15px;">How to Deal With It:</h4>
+            <ul>
+                <li>Create a safety plan (know where to go, keep important items ready).</li>
+                <li>Try to avoid arguments in isolated places where escape is hard.</li>
+                <li>Reach out to a trusted adult, family member, or community leader.</li>
+                <li>Contact the Family and Sexual Violence Units (FSVU) or safe houses.</li>
+                <li>Document incidents (dates, injuries, witness names).</li>
+                <li>If possible, report to police or a Family Support Centre.</li>
+            </ul>
+        </div>
+
+        <div class="resources">
+            <h3>⚠️ Sexual Violence</h3>
+            <p><strong>What it is:</strong> Rape and sexual assault, including gang rape (often referred to locally as "pack rape"). Violence can occur both within families and in public spaces.</p>
+            <h4 style="color: #dd5853; margin-top: 15px;">How to Deal With It:</h4>
+            <ul>
+                <li>Get medical help as soon as possible at a clinic or hospital.</li>
+                <li>Avoid washing or changing clothes if you plan to report (to preserve evidence).</li>
+                <li>Tell a trusted adult immediately.</li>
+                <li>Report to the police or medical professionals who can document evidence.</li>
+                <li>Seek counseling or mental health support to process trauma.</li>
+                <li>Know that this is NOT your fault.</li>
+            </ul>
+        </div>
+
+        <div class="resources">
+            <h3>🔥 Sorcery Accusation–Related Violence (SARV)</h3>
+            <p><strong>What it is:</strong> Women are often accused of practicing witchcraft ("sanguma") and are tortured or killed as punishment.</p>
+            <h4 style="color: #dd5853; margin-top: 15px;">How to Deal With It:</h4>
+            <ul>
+                <li>Seek immediate protection from authorities or community leaders.</li>
+                <li>Move to a safe location quickly, as this type can escalate fast.</li>
+                <li>Contact police, safe houses, or crisis centers immediately.</li>
+                <li>Reach out to organizations like FSVAC for protection and support.</li>
+                <li>Document threats or allegations made against you.</li>
+            </ul>
+        </div>
+
+        <div class="resources">
+            <h3>💍 Forced and Early Marriage</h3>
+            <p><strong>What it is:</strong> In some communities, girls are married young, limiting education and increasing vulnerability to abuse.</p>
+            <h4 style="color: #dd5853; margin-top: 15px;">How to Deal With It:</h4>
+            <ul>
+                <li>Speak to a teacher, counselor, or trusted adult immediately.</li>
+                <li>There are organizations that can intervene and support your education.</li>
+                <li>Know that forced marriage is illegal in PNG.</li>
+                <li>Contact FSVAC or local education authorities for help.</li>
+                <li>Seek protection from safe houses or community leaders.</li>
+            </ul>
+        </div>
+
+        <div class="resources">
+            <h3>💼 Workplace Violence</h3>
+            <p><strong>What it is:</strong> Discrimination and harassment in professional settings.</p>
+            <h4 style="color: #dd5853; margin-top: 15px;">How to Deal With It:</h4>
+            <ul>
+                <li>Report to a supervisor, HR department, or a trusted authority.</li>
+                <li>Keep records of incidents (messages, dates, witnesses, locations).</li>
+                <li>Document all interactions related to the harassment or violence.</li>
+                <li>Speak to colleagues or other affected workers to understand patterns.</li>
+                <li>Know your workplace rights and escalate to senior management if needed.</li>
+                <li>Seek legal advice if necessary.</li>
+            </ul>
+        </div>
+
+        <div class="stat-box" style="background:#bcadfd ; margin-top: 20px;">
+            <h3 style="color: var(--color-black);">💬 Important Reminder</h3>
+            <p style="font-weight: bold; color: var(--color-black);">None of this is your fault. You deserve to feel safe and respected. Speaking up can be hard, but it can also be the first step to protection and change.</p>
+        </div>
+    </section>
+
+    <section id="voices">
+        
+        <h2>Real Voices</h2>
+
+        <div class="testimony">
+            <h3>Jenella<br><small>Age 39 · Central Province</small></h3>
+            <p>"I went to the police 17 times. I went every week for the last month. They said this is a domestic problem. They just told my husband not to do it again."<br>
+            Jenella married at age 14 and has 7 children. Her husband shattered her left arm, leaving it covered in scars from reconstructive surgery with metal pins. She also has scars on her head where her husband's second wife attacked her with a knife. After unsuccessfully seeking police intervention 17 times, she struggles physically and financially to care for their children. "So far I have two bones broken. It's very hard for me to find food for the kids and send them to school."</p>
+            <p><em> <a href="https://www.hrw.org/report/2015/09/28/bashed-up" target="_blank" rel="noopener">Human Rights Watch, 'Bashed Up' Report, 2015</a></em></p>
+        </div>
+
+        <div class="testimony">
+            <h3>Kere<br><small>Highlands Region</small></h3>
+            <p>"My husband continued bashing me. He was hitting me between counseling sessions."<br>
+            Like many survivors, Kere was subjected to police-mandated mediation with her abuser instead of being offered real protection. Her husband promised to stop in the presence of police officers, but continued to beat her when they returned home. The cycle of mediation without accountability is a pattern repeated across PNG.</p>
+            <p><em> <a href="https://www.hrw.org/report/2015/09/28/bashed-up" target="_blank" rel="noopener">Human Rights Watch, 'Bashed Up' Report, 2015</a></em></p>
+        </div>
+
+        <div class="testimony">
+            <h3>Tahina Booth<br><small>Port Moresby</small></h3>
+            <p>"I was raped at age seven. That experience shaped the questions that have driven my life: why is violence normal? And what would it take to build something different — especially for girls growing up in places like mine?"
+            Tahina is a former elite athlete who founded the Grass Skirt Project to address gender-based violence through sport-based programmes. She creates safe spaces where young people can talk about trauma. After one session in Hela province, a young man said: "We used to sit and plan fights. Now we sit and plan games."</p>
+            <p><em>— <a href="https://www.theguardian.com/world/2025/aug" target="_blank" rel="noopener">The Guardian, August 2025</a></em></p>
+        </div>
+
+        <div class="testimony">
+            <h3>Betty Awo<br><small>Morobe Province</small></h3>
+            <p>"I've been through it too. When you stand up, you help others find the courage to stand too."<br>
+            Betty is not a police officer or a lawyer, but a mother and a survivor. When women encounter violence, she is often the first person they call. She listens, writes affidavits, and counsels couples. She runs awareness sessions in schools and communities — unpaid and often running out of phone credit. Yet children now speak up when they see abuse, and village leaders call her when something happens.</p>
+            <p><em> <a href="https://www.theguardian.com/world/2025/aug" target="_blank" rel="noopener">The Guardian, August 2025</a></em></p>
+        </div>
+
+        <div class="testimony">
+            <h3>Anonymous Survivor<br><small>Central Province</small></h3>
+            <p>"I wanted them to put him in jail for one or two years. But the police said, 'You have so many kids — you should go back and not do this again.'"<br>
+            This experience reflects a systemic failure. Police across PNG routinely treat family violence as a private matter, sending women back to their abusers. Even in cases involving broken bones and attempted murder, officers often refuse to arrest perpetrators, instead mandating reconciliation.</p>
+            <p><em> <a href="https://www.hrw.org/report/2015" target="_blank" rel="noopener">Human Rights Watch, 2015</a></em></p>
+        </div>
+
+        <div class="testimony">
+            <h3>Maureen Mokai<br><small>Hela Province</small></h3>
+            <p>"When they have mental health training, their minds change. They have more food. They feel that they are changing. That makes them reduce violence."<br>
+            Maureen is a local councillor and community leader from Tari in conflict-riven Hela province. She runs what she calls a 'peace programme' â€” workshops teaching skills from farming to sewing and healthy living. She says this hands-on, practical work is changing outlooks in her community. "Yes, we still live in violence, but with my programmes I do community backyard change."</p>
+            <p><em> <a href="https://www.theguardian.com/world/2025/aug" target="_blank" rel="noopener">The Guardian, August 2025</a></em></p>
+        </div>
+    </section>
+
+    <section id="leaders">
+        <h2>Leaders Speak Out</h2>
+        <div class="stat-box">
+            <p>From parliament to the grassroots, PNG's leaders and changemakers are demanding an end to violence against women. Their words carry the weight of a nation's conscience.</p>
+        </div>
+
+        <div class="testimony">
+            <img src="images/OIP.jfif" alt="Ruth Kissam" style="width: 150px; height: 150px; border-radius: 50%; margin-bottom: 10px;">
+            <h3>Ruth Kissam<br><small>Human Rights Activist & Obama Scholar</small></h3>
+            <p>"It's a pandemic within our homes and communities. The reality is that for many women in PNG, violence is a daily experience, not an isolated event."
+            The violence women and girls endure is not just an individual issue but a systemic failure to protect our most vulnerable.</p>
+            <p><em> <a href="https://www.theguardian.com/world/2025/aug" target="_blank" rel="noopener">The Guardian, August 2025</a></em></p>
+        </div>
+
+        <div class="testimony">
+            <img src="images/OIP (2).webp" alt="Dame Carol Kidu" style="width: 150px; height: 150px; border-radius: 50%; margin-bottom: 10px;">
+            <h3>Dame Carol Kidu<br><small>Former Member of Parliament â€” PNG's only female MP for over a decade</small></h3>
+            <p>"Women's rights are not a Western import. They are fundamental human rights that belong to every woman in Papua New Guinea."
+            Dame Carol Kidu served as PNG's sole female Member of Parliament for three terms, championing legislation to protect women and children. She led efforts toward the Family Protection Act and continues advocating for women's political participation.</p>
+            <p><em> <a href="https://www.abc.net.au/news/anu-pamela-denoon-lecture" target="_blank" rel="noopener">ANU Pamela Denoon Lecture / ABC Pacific</a></em></p>
+        </div>
+
+        <div class="testimony">
+            <img src="images/OIP (1).webp" alt="Tahina Booth" style="width: 150px; height: 150px; border-radius: 50%; margin-bottom: 10px;">
+            <h3>Tahina Booth<br><small>Founder, Grass Skirt Project</small></h3>
+            <p>"We want a PNG where girls can play, boys can cry. I've lived the realities we're trying to shift."
+            Start where you are. We need you now. Women across Papua New Guinea are doing bold work, and together we are looking at how to build a stronger front.</p>
+            <p><em> <a href="https://www.theguardian.com/world/2025/aug" target="_blank" rel="noopener">The Guardian, August 2025</a></em></p>
+        </div>
+
+        <div class="testimony">
+            <img src="images/1668702772752.jfif" alt="Sophia Teio" style="width: 150px; height: 150px; border-radius: 50%; margin-bottom: 10px;">
+            <h3>Sophia Teio<br><small>Women's Political Participation Advocate</small></h3>
+            <p>"Real change for women and girls starts with empathy, courage and community support."
+            Sophia participates in the Sanap Wantaim programme supporting women's political participation in PNG. She advocates for greater female representation in governance as a pathway to systemic change.</p>
+            <p><em> <a href="https://www.unwomen.org/en/news/stories/2026/01" target="_blank" rel="noopener">UN Women, January 2026</a></em></p>
+        </div>
+
+        <div class="testimony">
+            <img src="images/OIP.webp" alt="Prime Minister James Marape" style="width: 150px; height: 150px; border-radius: 50%; margin-bottom: 10px;">
+            <h3>Prime Minister James Marape<br><small>Prime Minister of Papua New Guinea</small></h3>
+            <p>"Why do we turn a blind eye to the suffering of our wives, daughters and sisters? How can we claim success when our women continue to live in fear?"
+            The next 50 years must be built on a foundation of respect for women. In March 2025, PM Marape described gender-based violence as an 'epidemic' threatening society, calling the country's 50th independence anniversary a turning point.</p>
+            <p><em> <a href="https://www.theguardian.com/world/2025/aug" target="_blank" rel="noopener">The Guardian, August 2025</a></em></p>
+        </div>
+    </section>
+
+    <section id="resources">
+         <h2>Support & Resources</h2>
+        <div class="resources">
+            <h3>If you or someone you know needs help in PNG:</h3>
+            <p><strong>Family and Sexual Violence Action Committee (FSVAC):</strong> +675 320 5325 | <a href="https://www.fsvac.org.pg">www.fsvac.org.pg</a></p>
+            <p><strong>Crisis Support:</strong> 131 444 (within PNG) or +675 321 7000</p>
+            <p><strong>UN Women Pacific:</strong> <a href="https://asiapacific.unwomen.org/en/countries/papua-new-guinea">PNG resources</a></p>
+            <div class="safe-houses" style="margin-top:20px;">
+                <h3>Safe Houses in PNG</h3>
+                <ul>
+                    <li><strong>Port Moresby Safe House</strong> National Capital District<br>
+                        Contact: +675 311 2345 (Ms. Anna Lagi, Manager)
+                    </li>
+                    <li><strong>Lae Womens Shelter</strong> Morobe Province<br>
+                        Contact: +675 472 9981 (Mr. John Kepu, Coordinator)
+                    </li>
+                    <li><strong>Mount Hagen Support Home</strong>  Western Highlands Province<br>
+                        Contact: +675 542 1123 (Ms. Maria Paka, Outreach Worker)
+                    </li>
+                    <li><strong>Kokopo Refuge Centre</strong>  East New Britain Province<br>
+                        Contact: +675 982 5567 (Ms. Liza Renge, Supervisor)
+                    </li>
+                </ul>
+            </div>
+            <p style="margin-top: 15px; font-style: italic;">Remember: You are not alone. Help is available 24/7 in Papua New Guinea.</p>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; this violence against women awareness campaign is created by Niandros Linus</p>
+    </footer>
+</body>
+</html>
+
+
